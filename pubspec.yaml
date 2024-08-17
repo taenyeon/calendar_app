@@ -28,7 +28,7 @@ dependencies:
   riverpod_annotation:
 
   # freezed
-#  freezed_annotation:
+  freezed_annotation:
 
 dev_dependencies:
   flutter_test:
@@ -36,8 +36,8 @@ dev_dependencies:
   flutter_lints:
   build_runner:
   riverpod_generator:
-#  freezed:
-#  json_serializable:
+  freezed:
+  json_serializable:
 
 flutter:
   uses-material-design: true

@@ -1,7 +1,4 @@
-import 'package:calendar_app/util/api/response/empty.dart';
-import 'package:calendar_app/util/api/response/entity.dart';
-
-class ApiResponse<T extends Entity> {
+class ApiResponse<T> {
   ApiResponse({
     required this.resultCode,
     required this.resultMessage,
@@ -10,18 +7,12 @@ class ApiResponse<T extends Entity> {
 
   factory ApiResponse.fromJson(
     Map<String, dynamic> json,
-    T Function(Map<String, dynamic>) binding,
+    T Function(Map<String, dynamic>)? binding,
   ) {
-    if (T is Empty) {
-      return ApiResponse(
-        resultCode: json['resultCode'],
-        resultMessage: json['resultMessage'],
-      );
-    }
     return ApiResponse(
       resultCode: json['resultCode'],
       resultMessage: json['resultMessage'],
-      body: binding(json['body']),
+      body: binding!(json['body']),
     );
   }
 

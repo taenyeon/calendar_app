@@ -1,9 +1,8 @@
 import 'package:calendar_app/repository/token_repository.dart';
 import 'package:calendar_app/util/api/api_interceptor.dart';
 import 'package:calendar_app/util/api/response/api_response.dart';
-import 'package:calendar_app/util/api/response/entity.dart';
-import 'package:calendar_app/util/api/response/example_entity.dart';
 import 'package:calendar_app/util/api/retry_api_interceptor.dart';
+import 'package:calendar_app/util/entity/example_entity.dart';
 import 'package:dio/dio.dart';
 
 Future<ApiResponse<ExampleEntity>> apiExample<T>() async {

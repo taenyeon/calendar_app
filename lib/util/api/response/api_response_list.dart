@@ -1,7 +1,4 @@
-import 'package:calendar_app/util/api/response/empty.dart';
-import 'package:calendar_app/util/api/response/entity.dart';
-
-class ApiResponseList<T extends Entity> {
+class ApiResponseList<T> {
   ApiResponseList({
     required this.resultCode,
     required this.resultMessage,
