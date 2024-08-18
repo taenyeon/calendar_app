@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'example_entity.g.dart';
+part '../../generated/util/entity/example_entity.g.dart';
 
-part 'example_entity.freezed.dart';
+part '../../generated/util/entity/example_entity.freezed.dart';
 
 @freezed
 class ExampleEntity with _$ExampleEntity {
