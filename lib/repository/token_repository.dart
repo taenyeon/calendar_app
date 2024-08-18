@@ -3,6 +3,7 @@ import 'package:logging/logging.dart';
 
 class TokenRepository {
   TokenRepository._privateConstructor();
+
   factory TokenRepository() => _instance;
   static final TokenRepository _instance = TokenRepository._privateConstructor();
 
