@@ -7,10 +7,9 @@ import 'package:dio/dio.dart';
 
 Future<ApiResponse<ExampleEntity>> apiExample<T>() async {
   Response response = await api().get('/example');
-  return ApiResponse<ExampleEntity>.fromJson(
-    response.data,
-    ExampleEntity.fromJson,
-  );
+  // ApiResponse.fromJson(response.data);
+  return ApiResultParser.toResponse<ExampleEntity>(
+      response.data, ExampleEntity.fromJson);
 }
 
 Dio api({bool hasSecure = false}) {
@@ -24,7 +23,8 @@ Dio api({bool hasSecure = false}) {
   return api;
 }
 
-Future<void> retryApi(Dio errorApi, DioException error, ErrorInterceptorHandler handler) async {
+Future<void> retryApi(
+    Dio errorApi, DioException error, ErrorInterceptorHandler handler) async {
   Dio api = Dio();
 
   TokenRepository tokenRepository = TokenRepository();
