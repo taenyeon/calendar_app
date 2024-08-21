@@ -103,4 +103,19 @@ void main() {
       print(element);
     }
   });
+
+  test('parse_json_test', () {
+    Map<String, dynamic> json = {
+      'startDateTime': '2024/08/08 00:00:00',
+      'endDateTime': '2024/08/08 00:00:00',
+      'title': '',
+      'text': '',
+      'createdAt': '2024/08/08 00:00:00',
+      'updatedAt': '2024/08/08 00:00:00',
+    };
+
+    Schedule schedule = Schedule.fromJson(json);
+
+    print(schedule);
+  });
 }
