@@ -8,13 +8,11 @@ part '../generated/entity/schedule.g.dart';
 class Schedule with _$Schedule {
   factory Schedule({
     @JsonKey(
-      name: 'startDateTime',
       fromJson: DatetimeFormatUtil.toDatetime,
       toJson: DatetimeFormatUtil.toJson,
     )
     required DateTime startDateTime,
     @JsonKey(
-      name: 'endDateTime',
       fromJson: DatetimeFormatUtil.toDatetime,
       toJson: DatetimeFormatUtil.toJson,
     )
@@ -22,13 +20,11 @@ class Schedule with _$Schedule {
     required String title,
     required String text,
     @JsonKey(
-      name: 'createdAt',
       fromJson: DatetimeFormatUtil.toDatetime,
       toJson: DatetimeFormatUtil.toJson,
     )
     required DateTime createdAt,
     @JsonKey(
-      name: 'updatedAt',
       fromJson: DatetimeFormatUtil.toDatetime,
       toJson: DatetimeFormatUtil.toJson,
     )

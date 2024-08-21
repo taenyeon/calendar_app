@@ -117,5 +117,6 @@ void main() {
     Schedule schedule = Schedule.fromJson(json);
 
     print(schedule);
+    print(schedule.toJson());
   });
 }
