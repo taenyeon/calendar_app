@@ -85,8 +85,6 @@ class CalendarRepository {
   }
 
   List<Date> findByYear(int year) {
-    DateTime now = DateTime.now();
-
     List<Date> dates = [];
 
     DateTime startDateTime = DateTime(year, 1, 1);
