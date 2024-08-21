@@ -6,7 +6,6 @@ enum Weekday {
   friday('FRI', 5),
   saturday('SAT', 6),
   sunday('SUN', 7),
-  notFound('', 0),
   ;
 
   const Weekday(this.code, this.value);
@@ -17,7 +16,6 @@ enum Weekday {
   factory Weekday.getByValue(int value) {
     return Weekday.values.firstWhere(
       (weekday) => weekday.value == value,
-      orElse: () => Weekday.notFound,
     );
   }
 }

@@ -1,7 +1,15 @@
+import 'package:calendar_app/entity/date.dart';
+import 'package:calendar_app/entity/schedule.dart';
+import 'package:calendar_app/entity/schedule_of_date.dart';
+import 'package:calendar_app/repository/calendar_repository.dart';
+import 'package:calendar_app/util/schedule/schedule_util.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:logging/logging.dart';
 
 void main() {
+  final Logger log = Logger('test');
+
   test('test', () {
     var value = 'foo,bar,baz';
     expect(value.split(','), equals(['foo', 'bar', 'baz']));
@@ -63,6 +71,36 @@ void main() {
     }
     for (Map<String, dynamic> date in dates) {
       print('$date\n');
+    }
+  });
+
+  test('schedule_util_test', () {
+    DateTime startDateTime =
+        DateFormat('yyyy/MM/dd HH:mm:ss').parse('2024/08/14 07:00:00');
+    DateTime endDateTime =
+        DateFormat('yyyy/MM/dd HH:mm:ss').parse('2024/08/16 15:00:00');
+    Schedule schedule = Schedule(
+      startDateTime: startDateTime,
+      endDateTime: endDateTime,
+      title: 'hello',
+      text: 'world',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    );
+    List<ScheduleOfDate> scheduleOfDateList =
+        ScheduleUtil.getScheduleOfDateList(schedule);
+
+    for (ScheduleOfDate scheduleOfDate in scheduleOfDateList) {
+      log.info(scheduleOfDate);
+    }
+  });
+
+  test('calendar_repository_test', () {
+    CalendarRepository calendarRepository = CalendarRepository();
+    List<Date> dates = calendarRepository.findByYearAndMonth(2023, 8);
+    print('dates : ');
+    for (Date element in dates) {
+      print(element);
     }
   });
 }
