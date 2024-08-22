@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
   fromJson: DatetimeFormatUtil.toDatetime,
   toJson: DatetimeFormatUtil.toJson,
 )
-const JsonKey Datetime = JsonKey(
+const JsonKey DATETIME = JsonKey(
   fromJson: DatetimeFormatUtil.toDatetime,
   toJson: DatetimeFormatUtil.toJson,
 );
