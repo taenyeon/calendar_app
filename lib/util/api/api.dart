@@ -1,16 +1,7 @@
 import 'package:calendar_app/repository/token_repository.dart';
 import 'package:calendar_app/util/api/api_interceptor.dart';
-import 'package:calendar_app/util/api/response/api_response.dart';
 import 'package:calendar_app/util/api/retry_api_interceptor.dart';
-import 'package:calendar_app/util/entity/example_entity.dart';
 import 'package:dio/dio.dart';
-
-Future<ApiResponse<ExampleEntity>> apiExample<T>() async {
-  Response response = await api().get('/example');
-  // ApiResponse.fromJson(response.data);
-  return ApiResultParser.toResponse<ExampleEntity>(
-      response.data, ExampleEntity.fromJson);
-}
 
 Dio api({bool hasSecure = false}) {
   Dio api = Dio();
@@ -24,7 +15,10 @@ Dio api({bool hasSecure = false}) {
 }
 
 Future<void> retryApi(
-    Dio errorApi, DioException error, ErrorInterceptorHandler handler) async {
+  Dio errorApi,
+  DioException error,
+  ErrorInterceptorHandler handler,
+) async {
   Dio api = Dio();
 
   TokenRepository tokenRepository = TokenRepository();
