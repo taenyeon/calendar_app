@@ -1,3 +1,4 @@
+import 'package:calendar_app/util/annotation/ParseDatetime.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part '../generated/entity/schedule_of_date.freezed.dart';
@@ -24,9 +25,9 @@ class ScheduleOfDate with _$ScheduleOfDate {
     required String text,
 
     // 생성 일자
-    required DateTime createdAt,
+    @Datetime required DateTime createdAt,
     // 수정 일자
-    required DateTime updatedAt,
+    @Datetime required DateTime updatedAt,
   }) = _ScheduleOfDate;
 
   factory ScheduleOfDate.fromJson(Map<String, dynamic> json) =>
