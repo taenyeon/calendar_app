@@ -1,4 +1,5 @@
 import 'package:calendar_app/util/annotation/datetime.dart';
+import 'package:calendar_app/util/format/datetime_format_util.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part '../generated/entity/schedule_of_date.freezed.dart';
@@ -7,6 +8,7 @@ part '../generated/entity/schedule_of_date.g.dart';
 @freezed
 class ScheduleOfDate with _$ScheduleOfDate {
   factory ScheduleOfDate({
+    required int id,
     // 날짜
     required int year,
     required int month,

@@ -23,7 +23,7 @@ Future<void> retryApi(
 
   TokenRepository tokenRepository = TokenRepository();
 
-  String? refreshToken = await tokenRepository.getRefreshToken();
+  String? refreshToken = await tokenRepository.findRefreshToken();
   if (refreshToken == null) return handler.next(error);
 
   api.options.baseUrl = 'http://127.0.0.1/api';
@@ -40,7 +40,7 @@ Future<void> retryApi(
 
   if (newAccessToken == null) return handler.next(error);
 
-  await tokenRepository.saveAccessToken(newAccessToken);
+  await tokenRepository.insertAccessToken(newAccessToken);
   await errorApi.request(
     error.requestOptions.path,
     options: Options(

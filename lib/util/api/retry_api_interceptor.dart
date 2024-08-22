@@ -8,7 +8,8 @@ class RetryApiInterceptor extends Interceptor {
   final TokenRepository _tokenRepository = TokenRepository();
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     log.info('\n[\x1B[34mREQUEST\x1B[0m]\n\n'
         'method : ${options.method}\n'
         'url : ${options.uri}\n\n'
@@ -20,10 +21,11 @@ class RetryApiInterceptor extends Interceptor {
   }
 
   @override
-  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(
+      DioException err, ErrorInterceptorHandler handler) async {
     int? errorCode = err.response?.statusCode;
     if (errorCode == 401 || errorCode == 403) {
-      await _tokenRepository.dropTokens();
+      await _tokenRepository.deleteToken();
     }
     return super.onError(err, handler);
   }

@@ -32,6 +32,9 @@ dependencies:
 
   # datetime format
   intl:
+  # local dataSource
+  sqflite:
+  path:
 
 dev_dependencies:
   flutter_test:

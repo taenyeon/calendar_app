@@ -7,6 +7,7 @@ part '../generated/entity/date.g.dart';
 
 @freezed
 class Date with _$Date {
+  Date._();
   factory Date({
     required int year,
     required int month,
@@ -16,4 +17,5 @@ class Date with _$Date {
   }) = _Date;
 
   factory Date.fromJson(Map<String, dynamic> json) => _$DateFromJson(json);
+  bool get isHoliday => weekday == Weekday.sunday;
 }

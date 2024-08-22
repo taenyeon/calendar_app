@@ -12,8 +12,9 @@ class ApiInterceptor extends Interceptor {
   final Dio _api;
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    String? accessToken = await _tokenRepository.getAccessToken();
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    String? accessToken = await _tokenRepository.findAccessToken();
 
     if (accessToken != null) options.headers['access_token'] = accessToken;
 
@@ -37,10 +38,12 @@ class ApiInterceptor extends Interceptor {
   }
 
   @override
-  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
-    var accessToken = await _tokenRepository.getAccessToken();
+  Future<void> onError(
+      DioException err, ErrorInterceptorHandler handler) async {
+    var accessToken = await _tokenRepository.findAccessToken();
     var statusCode = err.response?.statusCode;
-    log.info('[API ERROR] - statusCode : $statusCode, message : ${err.message}');
+    log.info(
+        '[API ERROR] - statusCode : $statusCode, message : ${err.message}');
     if ((statusCode == 401 || statusCode == 403) && accessToken != null) {
       log.info('[API RETRY] - statusCode : $statusCode');
       return await retryApi(_api, err, handler);

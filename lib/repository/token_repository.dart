@@ -5,7 +5,8 @@ class TokenRepository {
   TokenRepository._privateConstructor();
 
   factory TokenRepository() => _instance;
-  static final TokenRepository _instance = TokenRepository._privateConstructor();
+  static final TokenRepository _instance =
+      TokenRepository._privateConstructor();
 
   final Logger log = Logger('TokenRepository');
 
@@ -14,37 +15,42 @@ class TokenRepository {
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   // Default Function
-  Future save(String key, String value) async {
-    await drop(key);
+  Future insert(String key, String value) async {
+    await delete(key);
     await _secureStorage.write(key: key, value: value);
   }
 
-  Future drop(String tokenKey) async => await _secureStorage.delete(key: tokenKey);
+  Future delete(String tokenKey) async =>
+      await _secureStorage.delete(key: tokenKey);
 
   // AccessToken Function
-  Future<String?> getAccessToken() async => await _secureStorage.read(key: _accessTokenKey);
+  Future<String?> findAccessToken() async =>
+      await _secureStorage.read(key: _accessTokenKey);
 
-  Future saveAccessToken(String value) async => await save(_accessTokenKey, value);
+  Future insertAccessToken(String value) async =>
+      await insert(_accessTokenKey, value);
 
-  Future dropAccessToken() async => await drop(_accessTokenKey);
+  Future deleteAccessToken() async => await delete(_accessTokenKey);
 
   // RefreshToken Function
-  Future<String?> getRefreshToken() async => await _secureStorage.read(key: _refreshTokenKey);
+  Future<String?> findRefreshToken() async =>
+      await _secureStorage.read(key: _refreshTokenKey);
 
-  Future saveRefreshToken(String value) async => await save(_refreshTokenKey, value);
+  Future insertRefreshToken(String value) async =>
+      await insert(_refreshTokenKey, value);
 
-  Future dropRefreshToken() async => await drop(_refreshTokenKey);
+  Future deleteRefreshToken() async => await delete(_refreshTokenKey);
 
   // Tokens Function
-  Future saveTokens(String accessToken, String refreshToken) async {
+  Future insertToken(String accessToken, String refreshToken) async {
     log.info('saveAccessToken : $accessToken');
-    await saveAccessToken(accessToken);
+    await insertAccessToken(accessToken);
     log.info('saveRefreshToken : $refreshToken');
-    await saveRefreshToken(refreshToken);
+    await insertRefreshToken(refreshToken);
   }
 
-  Future dropTokens() async {
-    await dropRefreshToken();
-    await dropAccessToken();
+  Future deleteToken() async {
+    await deleteRefreshToken();
+    await deleteAccessToken();
   }
 }

@@ -2,7 +2,6 @@ import 'package:calendar_app/entity/date.dart';
 import 'package:calendar_app/entity/schedule.dart';
 import 'package:calendar_app/entity/schedule_of_date.dart';
 import 'package:calendar_app/repository/calendar_repository.dart';
-import 'package:calendar_app/util/schedule/schedule_util.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
@@ -87,8 +86,7 @@ void main() {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
-    List<ScheduleOfDate> scheduleOfDateList =
-        ScheduleUtil.getScheduleOfDateList(schedule);
+    List<ScheduleOfDate> scheduleOfDateList = schedule.getScheduleOfDateList();
 
     for (ScheduleOfDate scheduleOfDate in scheduleOfDateList) {
       log.info(scheduleOfDate);
