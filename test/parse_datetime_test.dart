@@ -85,6 +85,7 @@ void main() {
       text: 'world',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
+      id: 1,
     );
     List<ScheduleOfDate> scheduleOfDateList = schedule.getScheduleOfDateList();
 
