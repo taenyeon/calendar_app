@@ -1,5 +1,5 @@
 import 'package:calendar_app/entity/schedule.dart';
-import 'package:calendar_app/util/dataSource/local_data_source.dart';
+import 'package:calendar_app/util/dataSource/local/local_data_source.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
 class ScheduleRepository {
@@ -12,6 +12,15 @@ class ScheduleRepository {
   final String table = 'schedule';
 
   Future<Database> get _database async => await localDataSource.database;
+
+  Schedule? _toSchedule(List<Map<String, Object?>> list) {
+    Map<String, Object?>? firstOrNull = list.firstOrNull;
+    if (firstOrNull == null) return null;
+    return Schedule.fromJson(firstOrNull);
+  }
+
+  List<Schedule> _toScheduleList(List<Map<String, Object?>> list) =>
+      list.map((Map<String, Object?> e) => Schedule.fromJson(e)).toList();
 
   Future<bool> insert(Schedule schedule) async {
     Database database = await _database;
@@ -66,13 +75,4 @@ class ScheduleRepository {
     return _toScheduleList(await database.query(table,
         where: 'year = ? AND month = ?', whereArgs: [year, month]));
   }
-
-  Schedule? _toSchedule(List<Map<String, Object?>> list) {
-    Map<String, Object?>? firstOrNull = list.firstOrNull;
-    if (firstOrNull == null) return null;
-    return Schedule.fromJson(firstOrNull);
-  }
-
-  List<Schedule> _toScheduleList(List<Map<String, Object?>> list) =>
-      list.map((Map<String, Object?> e) => Schedule.fromJson(e)).toList();
 }

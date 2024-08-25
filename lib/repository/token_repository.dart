@@ -1,3 +1,4 @@
+import 'package:calendar_app/entity/jwt_token.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logging/logging.dart';
 
@@ -23,6 +24,11 @@ class TokenRepository {
   Future delete(String tokenKey) async =>
       await _secureStorage.delete(key: tokenKey);
 
+  Future<JwtToken> findToken() async => JwtToken(
+        accessToken: await findAccessToken(),
+        refreshToken: await findRefreshToken(),
+      );
+
   // AccessToken Function
   Future<String?> findAccessToken() async =>
       await _secureStorage.read(key: _accessTokenKey);
@@ -42,11 +48,11 @@ class TokenRepository {
   Future deleteRefreshToken() async => await delete(_refreshTokenKey);
 
   // Tokens Function
-  Future insertToken(String accessToken, String refreshToken) async {
-    log.info('saveAccessToken : $accessToken');
-    await insertAccessToken(accessToken);
-    log.info('saveRefreshToken : $refreshToken');
-    await insertRefreshToken(refreshToken);
+  Future insertToken(JwtToken jwtToken) async {
+    log.info('saveAccessToken : ${jwtToken.accessToken}');
+    await insertAccessToken(jwtToken.accessToken!);
+    log.info('saveRefreshToken : ${jwtToken.refreshToken}');
+    await insertRefreshToken(jwtToken.refreshToken!);
   }
 
   Future deleteToken() async {

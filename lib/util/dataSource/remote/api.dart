@@ -1,13 +1,13 @@
 import 'package:calendar_app/repository/token_repository.dart';
-import 'package:calendar_app/util/api/api_interceptor.dart';
-import 'package:calendar_app/util/api/retry_api_interceptor.dart';
+import 'package:calendar_app/util/dataSource/remote/api_interceptor.dart';
+import 'package:calendar_app/util/dataSource/remote/retry_api_interceptor.dart';
+import 'package:calendar_app/util/env/env.dart';
 import 'package:dio/dio.dart';
 
-Dio api({bool hasSecure = false}) {
+Dio baseApi({bool hasSecure = false}) {
   Dio api = Dio();
-
   // options
-  api.options.baseUrl = 'http://127.0.0.1:8001/api';
+  api.options.baseUrl = Env.BASE_API_PATH.value;
 
   api.interceptors.clear();
   api.interceptors.add(ApiInterceptor(api));
@@ -26,13 +26,13 @@ Future<void> retryApi(
   String? refreshToken = await tokenRepository.findRefreshToken();
   if (refreshToken == null) return handler.next(error);
 
-  api.options.baseUrl = 'http://127.0.0.1/api';
+  api.options.baseUrl = Env.BASE_API_PATH.value;
 
   api.interceptors.clear();
   api.interceptors.add(RetryApiInterceptor());
 
   Response response = await api.post(
-    '/user/accessToken',
+    Env.USER_RE_ISSUE_ACCESS_TOKEN_API.value,
     data: {'refreshToken': refreshToken},
   );
 

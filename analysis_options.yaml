@@ -10,6 +10,8 @@
 include: package:flutter_lints/flutter.yaml
 
 linter:
+  plugins:
+    - custom_lint
   rules:
     - prefer_const_constructors
     - always_declare_return_types
