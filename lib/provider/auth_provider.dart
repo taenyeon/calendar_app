@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part '../generated/provider/auth_provider.g.dart';
 
 @riverpod
-class AuthProvider extends _$AuthProvider {
+class AuthViewModel extends _$AuthViewModel {
   final TokenRepository _tokenRepository = TokenRepository();
   final AuthRepository _authRepository = AuthRepository();
 

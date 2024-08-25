@@ -17,7 +17,6 @@ class TokenRepository {
 
   // Default Function
   Future insert(String key, String value) async {
-    await delete(key);
     await _secureStorage.write(key: key, value: value);
   }
 

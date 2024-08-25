@@ -6,11 +6,13 @@ import 'package:window_manager/window_manager.dart';
 class PlatformUtil {
   // ⭐ The method used when initializing
   static Future<void> settingSize() async {
-    if (isDesktop()) {
-      await windowManager.ensureInitialized();
-      await windowManager.setMinimumSize(const Size(800, 600));
-      await windowManager.setMaximumSize(const Size(1280, 832));
-    }
+    try {
+      if (isDesktop()) {
+        await windowManager.ensureInitialized();
+        await windowManager.setMinimumSize(const Size(800, 600));
+        await windowManager.setMaximumSize(const Size(1280, 832));
+      }
+    } catch (e) {}
   }
 
   static bool isDesktop() =>
