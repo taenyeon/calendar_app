@@ -1,7 +1,6 @@
 import 'package:calendar_app/entity/jwt_token.dart';
 import 'package:calendar_app/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MainPage extends ConsumerWidget {
@@ -25,7 +24,7 @@ class MainPage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (jwtToken.isAutholized) ...[
+            if (jwtToken.isAuthorized) ...[
               const Text('isAutholized'),
               Text('accessToken : ${jwtToken.accessToken}'),
               Text('refreshToken : ${jwtToken.refreshToken}'),

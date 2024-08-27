@@ -11,6 +11,7 @@ class ApiResponse<T> {
   final T body;
 
   bool get isSuccess => resultCode == 'SUCCESS';
+  bool get isFail => resultCode != 'SUCCESS';
 }
 
 class Empty {
@@ -58,5 +59,29 @@ class ApiResultParser {
         resultCode: json['resultCode'],
         resultMessage: json['resultMessage'],
         body: (json['body'] as List).map((e) => binding(e)).toList());
+  }
+
+  static ApiResponse<T> success<T>(T body) {
+    return ApiResponse._(
+      resultCode: 'SUCCESS',
+      resultMessage: 'success',
+      body: body,
+    );
+  }
+
+  static ApiResponse<Empty> empty() {
+    return ApiResponse._(
+      resultCode: 'SUCCESS',
+      resultMessage: 'success',
+      body: Empty._(),
+    );
+  }
+
+  static ApiResponse<Empty> fail() {
+    return ApiResponse._(
+      resultCode: 'FAIL',
+      resultMessage: 'fail',
+      body: Empty._(),
+    );
   }
 }

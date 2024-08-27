@@ -13,10 +13,7 @@ class AuthViewModel extends _$AuthViewModel {
 
   @override
   JwtToken build() {
-    return JwtToken(
-      accessToken: null,
-      refreshToken: null,
-    );
+    return JwtToken();
   }
 
   Future<void> init() async {
@@ -25,7 +22,7 @@ class AuthViewModel extends _$AuthViewModel {
 
   Future<void> logout() async {
     ApiResponse<Empty> apiResponse = await _authRepository.logout();
-    if (!apiResponse.isSuccess) throw Exception('');
+    if (apiResponse.isFail) throw Exception('');
 
     await _tokenRepository.deleteToken();
 
@@ -37,7 +34,7 @@ class AuthViewModel extends _$AuthViewModel {
       username,
       password,
     );
-    if (!apiResponse.isSuccess) throw Exception();
+    if (apiResponse.isFail) throw Exception();
 
     JwtToken jwtToken = apiResponse.body;
     await _tokenRepository.insertToken(jwtToken);
@@ -51,7 +48,7 @@ class AuthViewModel extends _$AuthViewModel {
 
     ApiResponse<JwtToken> apiResponse =
         await _authRepository.reIssueAccessToken(refreshToken);
-    if (!apiResponse.isSuccess) throw Exception();
+    if (apiResponse.isFail) throw Exception();
 
     JwtToken jwtToken = apiResponse.body;
     await _tokenRepository.insertAccessToken(jwtToken.accessToken!);
