@@ -4,13 +4,16 @@ class ApiResponse<T> {
     required this.resultCode,
     required this.resultMessage,
     required this.body,
+    bool? isLoading,
   });
 
   final String resultCode;
   final String resultMessage;
   final T body;
+  bool isLoading = true;
 
   bool get isSuccess => resultCode == 'SUCCESS';
+
   bool get isFail => resultCode != 'SUCCESS';
 }
 
@@ -39,16 +42,20 @@ class ApiResultParser {
     T Function(Map<String, dynamic>) binding,
   ) {
     return ApiResponse._(
-        resultCode: json['resultCode'],
-        resultMessage: json['resultMessage'],
-        body: binding(json['body']));
+      resultCode: json['resultCode'],
+      resultMessage: json['resultMessage'],
+      body: binding(json['body']),
+      isLoading: false,
+    );
   }
 
   static ApiResponse<Empty> toEmptyResponse(Map<String, dynamic> json) {
     return ApiResponse._(
-        resultCode: json['resultCode'],
-        resultMessage: json['resultMessage'],
-        body: Empty._());
+      resultCode: json['resultCode'],
+      resultMessage: json['resultMessage'],
+      body: Empty._(),
+      isLoading: false,
+    );
   }
 
   static ApiResponse<List<T>> toListResponse<T>(
@@ -56,9 +63,19 @@ class ApiResultParser {
     T Function(Map<String, dynamic>) binding,
   ) {
     return ApiResponse._(
-        resultCode: json['resultCode'],
-        resultMessage: json['resultMessage'],
-        body: (json['body'] as List).map((e) => binding(e)).toList());
+      resultCode: json['resultCode'],
+      resultMessage: json['resultMessage'],
+      body: (json['body'] as List).map((e) => binding(e)).toList(),
+      isLoading: false,
+    );
+  }
+
+  static ApiResponse<Empty> loading<T>() {
+    return ApiResponse._(
+      resultCode: '',
+      resultMessage: '',
+      body: Empty._(),
+    );
   }
 
   static ApiResponse<T> success<T>(T body) {
@@ -66,6 +83,7 @@ class ApiResultParser {
       resultCode: 'SUCCESS',
       resultMessage: 'success',
       body: body,
+      isLoading: false,
     );
   }
 
@@ -74,14 +92,16 @@ class ApiResultParser {
       resultCode: 'SUCCESS',
       resultMessage: 'success',
       body: Empty._(),
+      isLoading: false,
     );
   }
 
-  static ApiResponse<Empty> fail() {
+  static ApiResponse<T> fail<T>(T body) {
     return ApiResponse._(
       resultCode: 'FAIL',
       resultMessage: 'fail',
-      body: Empty._(),
+      body: body,
+      isLoading: false,
     );
   }
 }

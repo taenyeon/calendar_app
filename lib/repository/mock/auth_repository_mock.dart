@@ -9,15 +9,19 @@ class AuthRepositoryMock {
   static final AuthRepositoryMock _instance =
       AuthRepositoryMock._privateConstructor();
 
-  final Logger _log = Logger('AuthRepository');
+  final Logger log = Logger('AuthRepository');
 
   Future<ApiResponse<JwtToken>> login(String username, String password) async {
-    return ApiResultParser.success(
-      JwtToken(
-        accessToken: 'test',
-        refreshToken: 'test',
-      ),
-    );
+    if ((username == 'test') && (password == 'test')) {
+      return ApiResultParser.success(
+        JwtToken(
+          accessToken: 'test',
+          refreshToken: 'test',
+        ),
+      );
+    } else {
+      return ApiResultParser.fail(JwtToken());
+    }
   }
 
   Future<ApiResponse<Empty>> logout() async {

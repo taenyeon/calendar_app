@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:calendar_app/page/main_page.dart';
 import 'package:calendar_app/util/log/logging_util.dart';
 import 'package:calendar_app/util/platform/platform_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logging/logging.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
