@@ -1,5 +1,5 @@
 import 'package:calendar_app/entity/jwt_token.dart';
-import 'package:calendar_app/repository/auth_repository.dart';
+import 'package:calendar_app/repository/mock/auth_repository_mock.dart';
 import 'package:calendar_app/repository/token_repository.dart';
 import 'package:calendar_app/util/dataSource/remote/response/api_response.dart';
 import 'package:calendar_app/util/exception/error_exception.dart';
@@ -12,7 +12,8 @@ part '../generated/provider/auth_provider.g.dart';
 @riverpod
 class AuthViewModel extends _$AuthViewModel {
   final TokenRepository _tokenRepository = TokenRepository();
-  final AuthRepository _authRepository = AuthRepository();
+  // final AuthRepository _authRepository = AuthRepository();
+  final AuthRepositoryMock _authRepository = AuthRepositoryMock();
 
   @override
   JwtToken build() {
@@ -58,6 +59,7 @@ class AuthViewModel extends _$AuthViewModel {
     if (apiResponse.isFail) throw ErrorException(ErrorCase.invalidToken);
 
     JwtToken jwtToken = apiResponse.body;
+
     await _tokenRepository.insertAccessToken(jwtToken.accessToken!);
 
     state = state.copyWith(accessToken: jwtToken.accessToken);

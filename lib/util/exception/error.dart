@@ -10,7 +10,7 @@ enum ErrorCase {
   existMember('EXIST_MEMBER', '이미 존재하는 회원ID입니다.'),
 
   notFound('NOT_FOUND', '결과를 찾을 수 없습니다.'),
-  invalidRequestParam('INVALID_REQUEST_PARAM', '유효하지 않은 파라미터입니다.'),
+  invalidParam('INVALID_PARAM', '유효하지 않은 파라미터입니다.'),
   ;
 
   const ErrorCase(this.code, this.message);

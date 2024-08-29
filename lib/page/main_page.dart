@@ -2,6 +2,7 @@ import 'package:calendar_app/entity/jwt_token.dart';
 import 'package:calendar_app/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class MainPage extends ConsumerWidget {
   MainPage({super.key});
@@ -28,6 +29,10 @@ class MainPage extends ConsumerWidget {
               const Text('isAutholized'),
               Text('accessToken : ${jwtToken.accessToken}'),
               Text('refreshToken : ${jwtToken.refreshToken}'),
+              ElevatedButton(
+                onPressed: () => context.go('/calendar'),
+                child: const Text('Calendar'),
+              )
             ] else ...[
               const Text('isUnAutholized'),
               TextField(
