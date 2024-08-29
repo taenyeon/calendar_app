@@ -38,6 +38,9 @@ dependencies:
   # env
   flutter_dotenv:
 
+  # router
+  go_router:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
