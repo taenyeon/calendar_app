@@ -1,11 +1,11 @@
 enum Weekday {
+  sunday('SUN', 7),
   monday('MON', 1),
   tuesday('TUE', 2),
   wednesday('WED', 3),
   thursday('THU', 4),
   friday('FRI', 5),
   saturday('SAT', 6),
-  sunday('SUN', 7),
   ;
 
   const Weekday(this.code, this.value);

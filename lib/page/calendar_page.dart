@@ -15,17 +15,27 @@ class CalendarPage extends ConsumerWidget {
     CalendarViewModel calendarViewModel =
         ref.read(calendarViewModelProvider.notifier);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('calendar'),
-      ),
-      body: Padding(
+    return Container(
+      child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               Text(
                 '${calendar.month} / ${calendar.year}',
-                style: const TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () => calendarViewModel.prev(),
+                    icon: const Icon(Icons.arrow_back_ios),
+                  ),
+                  IconButton(
+                    onPressed: () => calendarViewModel.next(),
+                    icon: const Icon(Icons.arrow_forward_ios),
+                  ),
+                ],
               ),
               const Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0)),
               Row(
@@ -61,7 +71,10 @@ class CalendarPage extends ConsumerWidget {
                         style: const TextStyle(color: Colors.red),
                       );
                     }
-                    return Text('${calendar.dates[index].day}');
+                    return Text(
+                      '${calendar.dates[index].day}',
+                      style: const TextStyle(color: Colors.white),
+                    );
                   },
                 ),
               ),

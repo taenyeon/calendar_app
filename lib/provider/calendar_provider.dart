@@ -90,4 +90,42 @@ class CalendarViewModel extends _$CalendarViewModel {
         );
     }
   }
+
+  Future<void> prev() async {
+    switch (state.dateType) {
+      case CalendarDateType.year:
+        List<Date> findByYear = _calendarRepository.findByYear(state.year - 1);
+        state = Calendar(
+          year: state.year + 1,
+          dateType: CalendarDateType.year,
+          dates: findByYear,
+        );
+      case CalendarDateType.month:
+        DateTime dateTime = DateTime(state.year, state.month! - 1);
+        List<Date> findByYearAndMonth = _calendarRepository.findByYearAndMonth(
+            dateTime.year, dateTime.month);
+        state = Calendar(
+          year: dateTime.year,
+          month: dateTime.month,
+          dateType: CalendarDateType.month,
+          dates: findByYearAndMonth,
+        );
+      case CalendarDateType.day:
+        DateTime dateTime = DateTime(state.year, state.month!, state.day! - 1);
+        List<Date> findByYearAndMonthAndDay =
+        _calendarRepository.findByYearAndMonthAndDay(
+          dateTime.year,
+          dateTime.month,
+          dateTime.day,
+        );
+        state = Calendar(
+          year: dateTime.year,
+          month: dateTime.month,
+          day: dateTime.day,
+          dateType: CalendarDateType.day,
+          dates: findByYearAndMonthAndDay,
+        );
+    }
+  }
+
 }

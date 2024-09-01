@@ -23,12 +23,16 @@ class CalendarRepository {
     List<Date> dates = [];
 
     DateTime startDateTime = DateTime(now.year, month, 1);
-    int endMonth = startDateTime.month + 1;
+    DateTime endDateTime = DateTime(now.year, month + 1, 1);
+
+    log.info('startDateTime : $startDateTime');
+    log.info('endDateTime : $endDateTime');
+    log.info('diff : ${endDateTime.difference(startDateTime)}');
 
     // todo schedule을 받아오는 API 추가 필요.
     List<ScheduleOfDate> schedules = [];
 
-    while (startDateTime.month < endMonth) {
+    while (endDateTime.difference(startDateTime) > const Duration(days: 0)) {
       Date date = Date(
           year: startDateTime.year,
           month: startDateTime.month,
@@ -58,17 +62,20 @@ class CalendarRepository {
     List<Date> dates = [];
 
     DateTime startDateTime = DateTime(year, month, 1);
-    int endMonth = month + 1;
-    if (startDateTime.weekday > 1) {
+    DateTime endDateTime = DateTime(year, month + 1, 1);
+
+    if (startDateTime.weekday > 1 && startDateTime.weekday != 7) {
       startDateTime =
-          startDateTime.subtract(Duration(days: startDateTime.weekday - 1));
+          startDateTime.subtract(Duration(days: startDateTime.weekday));
     }
-    log.info(startDateTime);
+    log.info('startDateTime : $startDateTime');
+    log.info('endDateTime : $endDateTime');
+    log.info('diff : ${endDateTime.difference(startDateTime)}');
 
     // todo schedule을 받아오는 API 추가 필요.
     List<ScheduleOfDate> schedules = [];
 
-    while (startDateTime.month < endMonth) {
+    while (endDateTime.difference(startDateTime) > const Duration(days: 0)) {
       Date date = Date(
           year: startDateTime.year,
           month: startDateTime.month,
