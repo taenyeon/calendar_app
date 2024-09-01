@@ -12,7 +12,7 @@ Future<void> main() async {
 
   LoggingUtil.settingLogger();
 
-  await PlatformUtil.settingSize();
+  // await PlatformUtil.settingSize();
 
   await dotenv.load();
 
@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        dividerTheme: const DividerThemeData(color: Colors.transparent),
+        fontFamily: 'Pretendard',
       ),
       routerConfig: router,
     );
