@@ -10,8 +10,8 @@ part '../generated/entity/schedule.g.dart';
 class Schedule with _$Schedule {
   factory Schedule({
     required int id,
-    @DATETIME required DateTime startDateTime,
-    @DATETIME required DateTime endDateTime,
+    @DATETIME required DateTime startedAt,
+    @DATETIME required DateTime endedAt,
     required String title,
     required String text,
     @DATETIME required DateTime createdAt,
@@ -23,21 +23,20 @@ class Schedule with _$Schedule {
   factory Schedule.fromJson(Map<String, dynamic> json) =>
       _$ScheduleFromJson(json);
 
-  bool _isSameDayEndSchedule() =>
-      startDateTime.difference(endDateTime).inDays == 0;
+  bool _isSameDayEndSchedule() => startedAt.difference(endedAt).inDays == 0;
 
   List<ScheduleOfDate> getScheduleOfDateList() {
     if (_isSameDayEndSchedule()) {
       return [
         ScheduleOfDate(
           id: id,
-          year: startDateTime.year,
-          month: startDateTime.month,
-          day: startDateTime.day,
-          startHour: startDateTime.hour,
-          startMinute: startDateTime.minute,
-          endHour: endDateTime.hour,
-          endMinute: endDateTime.minute,
+          year: startedAt.year,
+          month: startedAt.month,
+          day: startedAt.day,
+          startHour: startedAt.hour,
+          startMinute: startedAt.minute,
+          endHour: endedAt.hour,
+          endMinute: endedAt.minute,
           title: title,
           text: text,
           createdAt: createdAt,
@@ -50,21 +49,21 @@ class Schedule with _$Schedule {
   }
 
   List<ScheduleOfDate> _calculateSchedule() {
-    DateTime dateTime = startDateTime.copyWith();
+    DateTime dateTime = startedAt.copyWith();
     List<ScheduleOfDate> scheduleOfDateList = [];
-    while (dateTime.isBefore(endDateTime)) {
+    while (dateTime.isBefore(endedAt)) {
       int startHour;
       int startMinute;
       int endHour;
       int endMinute;
-      if (dateTime.difference(endDateTime).inDays == 0) {
+      if (dateTime.difference(endedAt).inDays == 0) {
         startHour = 0;
         startMinute = 0;
-        endHour = endDateTime.hour;
-        endMinute = endDateTime.minute;
-      } else if (dateTime.difference(startDateTime).inDays == 0) {
-        startHour = startDateTime.hour;
-        startMinute = startDateTime.minute;
+        endHour = endedAt.hour;
+        endMinute = endedAt.minute;
+      } else if (dateTime.difference(startedAt).inDays == 0) {
+        startHour = startedAt.hour;
+        startMinute = startedAt.minute;
         endHour = 23;
         endMinute = 59;
       } else {

@@ -79,8 +79,8 @@ void main() {
     DateTime endDateTime =
         DateFormat('yyyy/MM/dd HH:mm:ss').parse('2024/08/16 15:00:00');
     Schedule schedule = Schedule(
-      startDateTime: startDateTime,
-      endDateTime: endDateTime,
+      startedAt: startDateTime,
+      endedAt: endDateTime,
       title: 'hello',
       text: 'world',
       createdAt: DateTime.now(),

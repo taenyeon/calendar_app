@@ -1,9 +1,9 @@
+import 'package:calendar_app/constant/weekday.dart';
 import 'package:calendar_app/entity/calendar.dart';
+import 'package:calendar_app/page/dialog/calendar_detail_dialog.dart';
 import 'package:calendar_app/provider/calendar_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../constant/weekday.dart';
 
 class CalendarPage extends ConsumerWidget {
   const CalendarPage({super.key});
@@ -21,7 +21,7 @@ class CalendarPage extends ConsumerWidget {
           child: Column(
             children: [
               Text(
-                '${calendar.month} / ${calendar.year}',
+                '${calendar.year} / ${calendar.month}',
                 style: const TextStyle(fontSize: 20, color: Colors.white),
               ),
               Row(
@@ -54,26 +54,53 @@ class CalendarPage extends ConsumerWidget {
                   ),
                   itemBuilder: (BuildContext context, int index) {
                     if (calendar.dates[index].month != calendar.month) {
-                      return Text(
-                        '${calendar.dates[index].day}',
-                        style: const TextStyle(color: Colors.grey),
+                      return InkWell(
+                        onTap: () {},
+                        child: Text(
+                          '${calendar.dates[index].day}',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                      );
+                    }
+                    if (calendar.dates[index].month != calendar.month) {
+                      return InkWell(
+                        onTap: () {},
+                        child: Text(
+                          '${calendar.dates[index].day}',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
                       );
                     }
                     if (calendar.dates[index].weekday == Weekday.saturday) {
-                      return Text(
-                        '${calendar.dates[index].day}',
-                        style: const TextStyle(color: Colors.blue),
+                      return InkWell(
+                        onTap: () {},
+                        child: Text(
+                          '${calendar.dates[index].day}',
+                          style: const TextStyle(color: Colors.blue),
+                        ),
                       );
                     }
                     if (calendar.dates[index].isHoliday) {
-                      return Text(
-                        '${calendar.dates[index].day}',
-                        style: const TextStyle(color: Colors.red),
+                      return InkWell(
+                        onTap: () {},
+                        child: Text(
+                          '${calendar.dates[index].day}',
+                          style: const TextStyle(color: Colors.red),
+                        ),
                       );
                     }
-                    return Text(
-                      '${calendar.dates[index].day}',
-                      style: const TextStyle(color: Colors.white),
+                    return InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return CalendarDetailDialog();
+                            });
+                      },
+                      child: Text(
+                        '${calendar.dates[index].day}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     );
                   },
                 ),
@@ -81,7 +108,5 @@ class CalendarPage extends ConsumerWidget {
             ],
           )),
     );
-
-    throw UnimplementedError();
   }
 }

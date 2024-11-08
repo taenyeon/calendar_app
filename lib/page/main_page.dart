@@ -24,11 +24,11 @@ class MainPage extends ConsumerWidget {
       body: Row(
         children: [
           const Flexible(
-            flex: 4,
+            flex: 2,
             child: SideBar(),
           ),
           Flexible(
-            flex: 6,
+            flex: 8,
             child: child,
           ),
         ],

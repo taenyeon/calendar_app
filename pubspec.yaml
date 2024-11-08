@@ -41,6 +41,8 @@ dependencies:
   # router
   go_router:
 
+  flutter_emoji:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
